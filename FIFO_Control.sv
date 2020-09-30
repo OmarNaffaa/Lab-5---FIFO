@@ -73,8 +73,9 @@ module FIFO_Control
             end
             2'b11: // read and write simultaneously 
             begin
-                empty_next = 1'b0; // this case will never lead to empty sicne write to read is 2 to 1
+                empty_next = 1'b0; // this case will never lead to empty since it writes twice and reads once
                 
+                // do not read or write unless the FIFO is not full
                 if(~full)
                 begin
                     // must move pointer to new address everytime for asymmetrical FIFO to avoid overwrite
@@ -85,7 +86,7 @@ module FIFO_Control
                     else
                         rd_ptr_next = rd_ptr;
                     
-                    if (wr_ptr_next == rd_ptr || wr_ptr_next == rd_ptr - 1) // 2 spots need to be clear for the word
+                    if (wr_ptr_next == rd_ptr) // check with symmetric method since read and write pointers will only differ by 1
                         full_next = 1'b1;
                 end
             end

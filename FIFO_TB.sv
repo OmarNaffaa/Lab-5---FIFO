@@ -180,6 +180,33 @@ module FIFO_TB();
         wr = 1'b0;
         rd = 1'b0;
         
+        // read & write at the same time
+        repeat(1) @(negedge clk);
+        w_data = 16'h4334;
+        wr = 1'b1;
+        rd = 1'b1;
+        @(negedge clk)
+        wr = 1'b0;
+        rd = 1'b0;
+        
+        // read & write at the same time
+        repeat(1) @(negedge clk);
+        w_data = 16'h3223;
+        wr = 1'b1;
+        rd = 1'b1;
+        @(negedge clk)
+        wr = 1'b0;
+        rd = 1'b0;
+        
+        // read & write at the same time
+        repeat(1) @(negedge clk);
+        w_data = 16'h2112;
+        wr = 1'b1;
+        rd = 1'b1;
+        @(negedge clk)
+        wr = 1'b0;
+        rd = 1'b0;
+        
         // read 
         repeat(1) @(negedge clk);
         rd = 1'b1;
